@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-@author: Ivar, Sæunn
+@author: Saeunn
 """
 import matplotlib.pyplot as plt
 import matplotlib
@@ -10,10 +10,9 @@ from utils import read_pickle
 import numpy as np
 import porepy as pp
 
-
-save_path = "/home/saeunn/CDM_in_different_crustal_settings/src"
-case1_path = "/home/saeunn/CDM_in_different_crustal_settings/src/CaseI/"
-case2_path = "/home/saeunn/CDM_in_different_crustal_settings/src/CaseII/"
+save_path = "/home/saeunn/Numerical-modelling-of-convection-driven-cooling-deformation-and-fracturing-of-thermo-poroelastic-m/src_loke/"
+case1_path = "/home/saeunn/Numerical-modelling-of-convection-driven-cooling-deformation-and-fracturing-of-thermo-poroelastic-m/src_loke/CaseI_update3/"
+case2_path = "/home/saeunn/Numerical-modelling-of-convection-driven-cooling-deformation-and-fracturing-of-thermo-poroelastic-m/src_loke/CaseII_update3/"
 
 sns.set_style("ticks")
 
@@ -50,30 +49,53 @@ def prepare_plotting(**kwargs):
 def plot_ex_IV():
     plt.figure()
 
+ #   fig, (ax1, ax2) = plt.subplots(1, 2)
+ #   fig.suptitle('Horizontally stacked subplots')
+    #ax1.plot(x, y)
+    #ax2.plot(x, -y)
 
     fig, axs = plt.subplots(3, 2)
+#axs[0, 0].plot(x, y)
+#axs[0, 0].set_title('Axis [0, 0]')
+#axs[0, 1].plot(x, y, 'tab:orange')
+#axs[0, 1].set_title('Axis [0, 1]')
+#axs[1, 0].plot(x, -y, 'tab:green')
+#axs[1, 0].set_title('Axis [1, 0]')
+#axs[1, 1].plot(x, -y, 'tab:red')
+#axs[1, 1].set_title('Axis [1, 1]')
 
 # top left
     in_name = case1_path + "CaseI_sh_60p/fracture_sizes"
     data = read_pickle(in_name)
     fracture_sizes = data["fracture_sizes"]
     time_steps = np.array(data["time_steps"]) / pp.YEAR
- 
+    #fig, gs = prepare_plotting(figsize=(6, 5), widths=[2], heights=[1, 5])  # , 3, 3, 3
+    #ax_label = fig.add_subplot(gs[0, 0])
+    #ax = fig.add_subplot(gs[1, 0])
+    #linestyles = ["-", "-", "-", "-", "--"]
     n_frac = fracture_sizes.shape[1]
     for frac in range(n_frac):
         
-        #label = "$\Omega_{}$".format(frac + 2)
+        label = "$\Omega_{}$".format(frac + 2)
         axs[0, 0].plot(
                 time_steps,
                 fracture_sizes[:, frac],
                 color=colors[frac],
+     #           ls=linestyles[frac],
                 )
- 
+     #   ax_label.plot([], label=label, color=colors[frac])
+    
+    #ax_label.legend(loc="center", frameon=False, ncol=n_frac)
+    #ax_label.axis("off")
+    # xs = [0, 1200, 2400, 3600]
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels(xs)
     axs[0, 0].set_xlabel("$t$ [yr]")
     axs[0, 0].set_ylabel(r"$A$ [m$^2$]")
     axs[0, 0].set_title('1A')
 
-    ys = [40000, 60000, 80000, 100000]
+  #  ys = [40000, 60000, 80000, 100000]
+    ys = [40000, 60000, 80000, 100000, 150000] 
     axs[0, 0].set_yticks(ys)
     axs[0, 0].set_yticklabels(ys)
     
@@ -86,22 +108,34 @@ def plot_ex_IV():
     data = read_pickle(in_name)
     fracture_sizes = data["fracture_sizes"]
     time_steps = np.array(data["time_steps"]) / pp.YEAR
-
+    #fig, gs = prepare_plotting(figsize=(6, 5), widths=[2], heights=[1, 5])  # , 3, 3, 3
+    #ax_label = fig.add_subplot(gs[0, 0])
+    #ax = fig.add_subplot(gs[1, 0])
+    #linestyles = ["-", "-", "-", "-", "--"]
     n_frac = fracture_sizes.shape[1]
     for frac in range(n_frac):
         
-        #label = "$\Omega_{}$".format(frac + 2)
+        label = "$\Omega_{}$".format(frac + 2)
         axs[0, 1].plot(
                 time_steps,
                 fracture_sizes[:, frac],
                 color=colors[frac],
+     #           ls=linestyles[frac],
                 )
+     #   ax_label.plot([], label=label, color=colors[frac])
+    
+    #ax_label.legend(loc="center", frameon=False, ncol=n_frac)
+    #ax_label.axis("off")
+    # xs = [0, 1200, 2400, 3600]
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels(xs)
 
     axs[0, 1].set_xlabel("$t$ [yr]")
     axs[0, 1].set_ylabel(r"$A$ [m$^2$]")
     axs[0, 1].set_title('1D')
 
-    ys = [40000, 60000, 80000, 100000]
+ #   ys = [40000, 60000, 80000, 100000]
+    ys = [40000, 60000, 80000, 100000, 150000]
     axs[0, 1].set_yticks(ys)
     axs[0, 1].set_yticklabels(ys)
     
@@ -111,19 +145,35 @@ def plot_ex_IV():
 
 
 # middel left
+
     in_name = case1_path + "CaseI_sh_40p/fracture_sizes"
     data = read_pickle(in_name)
     fracture_sizes = data["fracture_sizes"]
     time_steps = np.array(data["time_steps"]) / pp.YEAR
-
+    #fig, gs = prepare_plotting(figsize=(6, 5), widths=[2], heights=[1, 5])  # , 3, 3, 3
+    #ax_label = fig.add_subplot(gs[0, 0])
+    #ax = fig.add_subplot(gs[1, 0])
+    #linestyles = ["-", "-", "-", "-", "--"]
     n_frac = fracture_sizes.shape[1]
     for frac in range(n_frac):
-       # label = "$\Omega_{}$".format(frac + 2)
+        label = "$\Omega_{}$".format(frac + 2)
         axs[1, 0].plot(
             time_steps[0:23],
             fracture_sizes[0:23, frac],
             color=colors[frac],
             )
+
+        
+#      ls=linestyles[frac],
+             
+     #   ax_label.plot([], label=label, color=colors[frac])
+    
+    #ax_label.legend(loc="center", frameon=False, ncol=n_frac)
+    #ax_label.axis("off")
+    # xs = [0, 1200, 2400, 3600]
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels(xs)
+
 
     axs[1, 0].set_xlabel("$t$ [yr]")
     axs[1, 0].set_ylabel(r"$A$ [m$^2$]")
@@ -142,17 +192,29 @@ def plot_ex_IV():
     data = read_pickle(in_name)
     fracture_sizes = data["fracture_sizes"]
     time_steps = np.array(data["time_steps"]) / pp.YEAR
-
+    #fig, gs = prepare_plotting(figsize=(6, 5), widths=[2], heights=[1, 5])  # , 3, 3, 3
+    #ax_label = fig.add_subplot(gs[0, 0])
+    #ax = fig.add_subplot(gs[1, 0])
+    #linestyles = ["-", "-", "-", "-", "--"]
     n_frac = fracture_sizes.shape[1]
     for frac in range(n_frac):
         
-      #  label = "$\Omega_{}$".format(frac + 2)
+        label = "$\Omega_{}$".format(frac + 2)
         axs[1, 1].plot(
                 time_steps[0:23],
                 fracture_sizes[0:23, frac],
                 color=colors[frac],
+     #           ls=linestyles[frac],
                 )
-  
+     #   ax_label.plot([], label=label, color=colors[frac])
+    
+    #ax_label.legend(loc="center", frameon=False, ncol=n_frac)
+    #ax_label.axis("off")
+    # xs = [0, 1200, 2400, 3600]
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels(xs)
+
+ 
     axs[1, 1].set_xlabel("$t$ [yr]")
     axs[1, 1].set_ylabel(r"$A$ [m$^2$]")
     axs[1, 1].set_title('1C')
@@ -166,7 +228,9 @@ def plot_ex_IV():
     axs[1, 1].set_xticklabels(xs)
 
 
+
 # bottom left
+
     in_name = case2_path + "CaseII_sh_40p/fracture_sizes"
     data = read_pickle(in_name)
     fracture_sizes = data["fracture_sizes"]
@@ -178,18 +242,27 @@ def plot_ex_IV():
     n_frac = fracture_sizes.shape[1]
     for frac in range(n_frac):
         
-     #   label = "$\Omega_{}$".format(frac + 2)
+        label = "$\Omega_{}$".format(frac + 2)
         axs[2, 0].plot(
                 time_steps,
                 fracture_sizes[:, frac],
                 color=colors[frac],
+     #           ls=linestyles[frac],
                 )
+     #   ax_label.plot([], label=label, color=colors[frac])
+    
+    #ax_label.legend(loc="center", frameon=False, ncol=n_frac)
+    #ax_label.axis("off")
+    # xs = [0, 1200, 2400, 3600]
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels(xs)
  
     axs[2, 0].set_xlabel("$t$ [yr]")
     axs[2, 0].set_ylabel(r"$A$ [m$^2$]")
     axs[2, 0].set_title('2B')
 
-    ys = [40000, 60000, 80000, 100000]
+    #ys = [40000, 60000, 80000, 100000]
+    ys = [40000, 60000, 80000, 100000, 150000]
     axs[2, 0].set_yticks(ys)
     axs[2, 0].set_yticklabels(ys)
     
@@ -197,27 +270,41 @@ def plot_ex_IV():
     axs[2, 0].set_xticks(xs)
     axs[2, 0].set_xticklabels(xs)
 
+
 # bottom right 
     in_name = case2_path + "CaseII_sh_40p_normal/fracture_sizes"
     data = read_pickle(in_name)
     fracture_sizes = data["fracture_sizes"]
     time_steps = np.array(data["time_steps"]) / pp.YEAR
-
+    #fig, gs = prepare_plotting(figsize=(6, 5), widths=[2], heights=[1, 5])  # , 3, 3, 3
+    #ax_label = fig.add_subplot(gs[0, 0])
+    #ax = fig.add_subplot(gs[1, 0])
+    #linestyles = ["-", "-", "-", "-", "--"]
     n_frac = fracture_sizes.shape[1]
     for frac in range(n_frac):
         
-    #    label = "$\Omega_{}$".format(frac + 2)
+        label = "$\Omega_{}$".format(frac + 2)
         axs[2, 1].plot(
                 time_steps,
                 fracture_sizes[:, frac],
                 color=colors[frac],
+     #           ls=linestyles[frac],
                 )
- 
+     #   ax_label.plot([], label=label, color=colors[frac])
+    
+    #ax_label.legend(loc="center", frameon=False, ncol=n_frac)
+    #ax_label.axis("off")
+    # xs = [0, 1200, 2400, 3600]
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels(xs)
+
+
     axs[2, 1].set_xlabel("$t$ [yr]")
     axs[2, 1].set_ylabel(r"$A$ [m$^2$]")
     axs[2, 1].set_title('2C')
 
-    ys = [40000, 60000, 80000, 100000]
+#    ys = [40000, 60000, 80000, 100000]
+    ys = [40000, 60000, 80000, 100000, 150000]
     axs[2, 1].set_yticks(ys)
     axs[2, 1].set_yticklabels(ys)
     
@@ -227,7 +314,14 @@ def plot_ex_IV():
 
     
     fig.tight_layout()
-   # plt.savefig(save_path + "Case_compare.pdf")
+    plt.savefig(save_path + "Case_compare.pdf")
     plt.show()
 
+
+
+
+#plot_applications("exIV")
 plot_ex_IV()
+
+# plot_ex_I()
+# plot_ex_II()
